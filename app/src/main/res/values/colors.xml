@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="teal_400">#31BB98</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="textColor">#363699</color>
+    <color name="textBg">#DAD5FE</color>
+
+
+    <color name="empty">#ffc1c1</color>
+    <color name="progress">#8c9eff</color>
+    <color name="progress_click">#bbdefb</color>
+    <color name="pin_background">#2c2c65</color>
+    <color name="pin_text">#8c8c8c</color>
+    <color name="bar_title_color">#000000</color>
+    <color name="bar_title_txt_selected_color">#eaa</color>
+    <color name="bar_title_selected_color">#eaa</color>
+    <color name="progress_disable">@android:color/darker_gray</color>
+</resources>
