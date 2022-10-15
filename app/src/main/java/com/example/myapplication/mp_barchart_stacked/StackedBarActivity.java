@@ -1,24 +1,21 @@
 package com.example.myapplication.mp_barchart_stacked;
 
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import android.provider.Settings;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
+import com.example.myapplication.worker.WorkManagerScheduler;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -33,15 +30,14 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class StackedBarActivity extends AppCompatActivity implements OnSeekBarChangeListener, OnChartValueSelectedListener {
 
     private BarChart chart;
     private SeekBar seekBarX, seekBarY;
     private TextView tvX, tvY;
+    private TextView tvAutoTimeSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +49,8 @@ public class StackedBarActivity extends AppCompatActivity implements OnSeekBarCh
 
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
+
+        tvAutoTimeSet = findViewById(R.id.tvAutoTimeSet);
 
         seekBarX = findViewById(R.id.seekBar1);
         seekBarX.setOnSeekBarChangeListener(this);
@@ -104,6 +102,15 @@ public class StackedBarActivity extends AppCompatActivity implements OnSeekBarCh
         l.setXEntrySpace(6f);
 
         // chart.setDrawLegend(false);
+
+        boolean autoTime = isTimeAutomatic();
+        tvAutoTimeSet.setText("Auto time set: "+autoTime);
+
+        WorkManagerScheduler.INSTANCE.refreshPeriodicWork(this);
+    }
+
+    public boolean isTimeAutomatic() {
+        return Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0) == 1;
     }
 
     @Override
